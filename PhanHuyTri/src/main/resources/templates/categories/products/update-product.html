@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Update Product</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+    <h1>Update Product</h1>
+    <form th:action="@{/products/update/{id}(id=${product.id})}" th:object="${product}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price:</label>
+            <input type="text" th:field="*{price}" class="form-control" id="price" required>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Image:</label>
+            <input type="file" name="image" class="form-control" id="image">
+            <div th:if="${product.imageUrl}">
+                <img th:src="${product.imageUrl}" alt="Product Image" style="max-height: 100px; max-width: 100px;">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a th:href="@{/products}" class="btn btn-link">Cancel</a>
+    </form>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
